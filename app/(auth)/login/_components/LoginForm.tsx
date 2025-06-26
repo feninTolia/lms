@@ -10,14 +10,36 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { authClient } from '@/lib/auth-client';
-import { GithubIcon, Loader } from 'lucide-react';
-import { useTransition } from 'react';
+import { GithubIcon, Loader, Send } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 const LoginForm = () => {
+  const router = useRouter();
   const [isGithubPending, startGithubTransition] = useTransition();
+  const [isEmailPending, startEmailTransition] = useTransition();
+  const [email, setEmail] = useState('');
 
-  async function signInWithGithub() {
+  const handelEmailSignIn = async () => {
+    startEmailTransition(async () => {
+      await authClient.emailOtp.sendVerificationOtp({
+        email,
+        type: 'sign-in',
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success('Verification code sent to your email!');
+            router.push(`verify-request?email=${encodeURIComponent(email)}`);
+          },
+          onError: () => {
+            toast.error('Failed to send verification code. Please try again.');
+          },
+        },
+      });
+    });
+  };
+
+  function signInWithGithub() {
     startGithubTransition(async () => {
       await authClient.signIn.social({
         provider: 'github',
@@ -72,9 +94,30 @@ const LoginForm = () => {
         <div className="grid gap-3">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" placeholder="m@example.com" />
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              placeholder="m@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-          <Button>Continue with Email</Button>
+          <Button
+            onClick={handelEmailSignIn}
+            disabled={!email || isEmailPending}
+          >
+            {isEmailPending ? (
+              <>
+                <Loader className="size-4 animate-spin" />
+                Loading
+              </>
+            ) : (
+              <>
+                <Send className="size-4" /> Continue with Email
+              </>
+            )}
+          </Button>
         </div>
       </CardContent>
     </Card>
