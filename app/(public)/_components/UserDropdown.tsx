@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { authClient } from '@/lib/auth-client';
+import { useSignOut } from '@/hooks/useSignOut';
 import {
   BookOpenIcon,
   ChevronDownIcon,
@@ -18,8 +18,6 @@ import {
   LogOutIcon,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 
 type UserDropdown = {
   email: string;
@@ -28,20 +26,7 @@ type UserDropdown = {
 };
 
 export function UserDropdown({ email, name, userImg }: UserDropdown) {
-  const router = useRouter();
-  const handleLogout = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          toast.success('Successfully logged out!');
-          router.push('/');
-        },
-        onError: () => {
-          toast.error('Failed to log out. Please try again.');
-        },
-      },
-    });
-  };
+  const { handleLogout } = useSignOut();
 
   return (
     <DropdownMenu>
@@ -86,7 +71,7 @@ export function UserDropdown({ email, name, userImg }: UserDropdown) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={'/dashboard'}>
+            <Link href={'/admin'}>
               <LayoutDashboardIcon
                 size={16}
                 className="opacity-60"
