@@ -1,4 +1,5 @@
 'use client';
+import RichTextEditor from '@/components/rich-text-editor/Editor';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -71,7 +72,7 @@ const CreateCoursePage = () => {
         <h1 className="text-2xl font-bold">Create Courses</h1>
       </div>
 
-      <Card>
+      <Card className="bg-background">
         <CardHeader>
           <CardTitle>Basic Information</CardTitle>
           <CardDescription>
@@ -150,11 +151,7 @@ const CreateCoursePage = () => {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="description"
-                        className="min-h-[120px]"
-                        {...field}
-                      />
+                      <RichTextEditor field={field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

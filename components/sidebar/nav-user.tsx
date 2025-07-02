@@ -49,7 +49,7 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg ">
                 <AvatarImage
-                  src={user?.image ?? `https://avatr.vercel.sh/${user?.email}`}
+                  src={user?.image ?? `https://avatar.vercel.sh/${user?.email}`}
                   alt={user?.name}
                 />
                 <AvatarFallback className="rounded-lg">
@@ -80,14 +80,20 @@ export function NavUser() {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
                     src={
-                      user?.image ?? `https://avatr.vercel.sh/${user?.email}`
+                      user?.image ?? `https://avatar.vercel.sh/${user?.email}`
                     }
                     alt={user?.name}
                   />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {user?.email[0].toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate font-medium">
+                    {user?.name && user?.name.length > 0
+                      ? user?.name
+                      : user?.email.split('@')[0]}
+                  </span>
                   <span className="text-muted-foreground truncate text-xs">
                     {user?.email}
                   </span>

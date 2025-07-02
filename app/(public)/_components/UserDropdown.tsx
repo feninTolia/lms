@@ -33,8 +33,11 @@ export function UserDropdown({ email, name, userImg }: UserDropdown) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
-            <AvatarImage src={userImg ?? ''} alt="Profile image" />
-            <AvatarFallback>KK</AvatarFallback>
+            <AvatarImage
+              src={userImg ?? `https://avatar.vercel.sh/${email}`}
+              alt="Profile image"
+            />
+            <AvatarFallback>{email.at(0)?.toUpperCase()}</AvatarFallback>
           </Avatar>
           <ChevronDownIcon
             size={16}
@@ -43,10 +46,10 @@ export function UserDropdown({ email, name, userImg }: UserDropdown) {
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="max-w-64">
+      <DropdownMenuContent align="end" className="min-w-48">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="text-foreground truncate text-sm font-medium">
-            {name}
+            {name && name.length > 0 ? name : email.split('@')[0]}
           </span>
           <span className="text-muted-foreground truncate text-xs font-normal">
             {email}
