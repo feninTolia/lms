@@ -1,4 +1,5 @@
 'use client';
+import { Uploader } from '@/components/file-uploader/Uploader';
 import RichTextEditor from '@/components/rich-text-editor/Editor';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -165,11 +166,7 @@ const CreateCoursePage = () => {
                   <FormItem>
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Input
-                        type="file"
-                        placeholder="Thumbnail Image"
-                        {...field}
-                      />
+                      <Uploader onChange={field.onChange} value={field.value} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
