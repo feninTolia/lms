@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { authClient } from '@/lib/auth-client';
+import { IconBrandGoogle } from '@tabler/icons-react';
 import { GithubIcon, Loader, Send } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
@@ -18,6 +19,7 @@ import { toast } from 'sonner';
 const LoginForm = () => {
   const router = useRouter();
   const [isGithubPending, startGithubTransition] = useTransition();
+  const [isGogglePending, startGoggleTransition] = useTransition();
   const [isEmailPending, startEmailTransition] = useTransition();
   const [email, setEmail] = useState('');
 
@@ -55,6 +57,22 @@ const LoginForm = () => {
       });
     });
   }
+  async function signInWithGoogle() {
+    startGoggleTransition(async () => {
+      await authClient.signIn.social({
+        provider: 'google',
+        callbackURL: '/',
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success('Successfully signed in with Google!');
+          },
+          onError: () => {
+            toast.error('Failed to sign in with Google. Please try again.');
+          },
+        },
+      });
+    });
+  }
 
   return (
     <Card>
@@ -81,6 +99,24 @@ const LoginForm = () => {
             <>
               <GithubIcon className="size-4" />
               Sign in with GitHub
+            </>
+          )}
+        </Button>
+
+        <Button
+          className="w-full"
+          variant={'outline'}
+          onClick={signInWithGoogle}
+        >
+          {isGogglePending ? (
+            <>
+              <Loader className="size-4 animate-spin" />
+              Loading
+            </>
+          ) : (
+            <>
+              <IconBrandGoogle className="size-4" />
+              Sign in with Google
             </>
           )}
         </Button>
