@@ -11,6 +11,7 @@ import {
   RenderUploadedState,
   RenderUploadingState,
 } from './RenderState';
+import { useConstructUrl } from '@/hooks/use-construct';
 
 type UploaderState = {
   id: string | null;
@@ -30,6 +31,8 @@ type Props = {
 };
 
 export function Uploader({ value, onChange }: Props) {
+  const fileUrl = useConstructUrl(value);
+
   const [fileState, setFileState] = useState<UploaderState>({
     id: null,
     file: null,
@@ -39,6 +42,7 @@ export function Uploader({ value, onChange }: Props) {
     isError: false,
     fileType: 'image',
     key: value,
+    objectUrl: fileUrl,
   });
 
   const uploadFile = async (file: File) => {

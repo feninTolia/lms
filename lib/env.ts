@@ -1,4 +1,4 @@
-import { createEnv } from '@t3-oss/env-core';
+import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
 export const env = createEnv({
@@ -22,7 +22,7 @@ export const env = createEnv({
    * The prefix that client-side variables must have. This is enforced both at
    * a type-level and at runtime.
    */
-  clientPrefix: 'NEXT_PUBLIC',
+  // clientPrefix: 'NEXT_PUBLIC',
 
   client: {
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1),
@@ -32,8 +32,11 @@ export const env = createEnv({
    * What object holds the environment variables at runtime. This is usually
    * `process.env` or `import.meta.env`.
    */
-  runtimeEnv: process.env,
-
+  // runtimeEnv: process.env,
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES:
+      process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
+  },
   /**
    * By default, this library will feed the environment variables directly to
    * the Zod validator.
@@ -47,5 +50,5 @@ export const env = createEnv({
    * In order to solve these issues, we recommend that all new projects
    * explicitly specify this option as true.
    */
-  emptyStringAsUndefined: true,
+  // emptyStringAsUndefined: true,
 });
