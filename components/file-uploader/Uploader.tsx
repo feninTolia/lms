@@ -31,7 +31,7 @@ type Props = {
 };
 
 export function Uploader({ value, onChange }: Props) {
-  const fileUrl = useConstructUrl(value);
+  const fileUrl = useConstructUrl(value ?? '');
 
   const [fileState, setFileState] = useState<UploaderState>({
     id: null,
