@@ -1,6 +1,4 @@
 import { adminGetCourse } from '@/app/data/admin/admin-get-course';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import EditCourseForm from './_components/EditCourseForm';
 import {
   Card,
   CardContent,
@@ -8,6 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import CourseStructure from './_components/CourseStructure';
+import EditCourseForm from './_components/EditCourseForm';
 
 type Props = {
   params: Promise<{ courseId: string }>;
@@ -46,7 +47,7 @@ const EditCourse = async ({ params }: Props) => {
         </TabsContent>
 
         <TabsContent value="course-structure">
-          <h2>course-structure</h2>
+          <CourseStructure course={data} />
         </TabsContent>
       </Tabs>
     </div>
