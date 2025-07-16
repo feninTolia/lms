@@ -37,6 +37,8 @@ import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { reorderChapters, reorderLessons } from '../actions';
+import NewChapterModal from './NewChapterModal';
+import NewLessonModal from './NewLessonModal';
 
 type Props = {
   course: AdminCourseSingularType;
@@ -289,6 +291,7 @@ const CourseStructure = ({ course }: Props) => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between border-b border-border">
           <CardTitle>Chapters</CardTitle>
+          <NewChapterModal courseId={course.id} />
         </CardHeader>
 
         <CardContent className="flex gap-4 flex-col">
@@ -380,9 +383,10 @@ const CourseStructure = ({ course }: Props) => {
                           </SortableContext>
 
                           <div className="p-2">
-                            <Button variant="outline" className="w-full">
-                              Create New Lesson
-                            </Button>
+                            <NewLessonModal
+                              courseId={course.id}
+                              chapterId={item.id}
+                            />
                           </div>
                         </div>
                       </CollapsibleContent>
