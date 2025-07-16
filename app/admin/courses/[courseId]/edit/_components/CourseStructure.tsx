@@ -39,6 +39,7 @@ import { toast } from 'sonner';
 import { reorderChapters, reorderLessons } from '../actions';
 import NewChapterModal from './NewChapterModal';
 import NewLessonModal from './NewLessonModal';
+import DeleteLesson from './DeleteLesson';
 
 type Props = {
   course: AdminCourseSingularType;
@@ -373,9 +374,11 @@ const CourseStructure = ({ course }: Props) => {
                                       </Link>
                                     </div>
 
-                                    <Button variant="outline" size={'icon'}>
-                                      <Trash2 className="size-4" />
-                                    </Button>
+                                    <DeleteLesson
+                                      chapterId={item.id}
+                                      courseId={course.id}
+                                      lessonId={lesson.id}
+                                    />
                                   </div>
                                 )}
                               </SortableItem>
