@@ -49,19 +49,26 @@ export const RenderUploadedState = ({
   previewUrl,
   isDeleting,
   handleDelete,
+  fileType,
 }: {
   previewUrl: string;
   isDeleting: boolean;
   handleDelete: () => void;
+  fileType: 'image' | 'video';
 }) => {
   return (
-    <div className="text-center">
-      <Image
-        src={previewUrl}
-        alt="Uploaded File"
-        fill
-        className=" object-contain p-2"
-      />
+    <div className="text-center relative group w-full h-full flex items-center justify-center">
+      {fileType === 'image' ? (
+        <Image
+          src={previewUrl}
+          alt="Uploaded File"
+          fill
+          className=" object-contain p-2"
+        />
+      ) : (
+        <video src={previewUrl} controls className="rounded-md w-full h-full" />
+      )}
+
       <Button
         variant="destructive"
         size="icon"
