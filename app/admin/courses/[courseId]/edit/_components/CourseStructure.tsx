@@ -31,15 +31,15 @@ import {
   ChevronRight,
   FileText,
   GripVerticalIcon,
-  Trash2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { reorderChapters, reorderLessons } from '../actions';
+import DeleteChapter from './DeleteChapter';
+import DeleteLesson from './DeleteLesson';
 import NewChapterModal from './NewChapterModal';
 import NewLessonModal from './NewLessonModal';
-import DeleteLesson from './DeleteLesson';
 
 type Props = {
   course: AdminCourseSingularType;
@@ -338,9 +338,10 @@ const CourseStructure = ({ course }: Props) => {
                           </p>
                         </div>
 
-                        <Button variant="outline" size="icon">
-                          <Trash2 className="size-4" />
-                        </Button>
+                        <DeleteChapter
+                          chapterId={item.id}
+                          courseId={course.id}
+                        />
                       </div>
 
                       <CollapsibleContent>
