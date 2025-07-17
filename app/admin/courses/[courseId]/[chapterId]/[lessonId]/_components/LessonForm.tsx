@@ -24,7 +24,6 @@ import { LessonSchemaType, lessonSchema } from '@/lib/zodSchemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -39,7 +38,6 @@ type Props = {
 
 const LessonForm = ({ data, chapterId, courseId, lessonId }: Props) => {
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
 
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
