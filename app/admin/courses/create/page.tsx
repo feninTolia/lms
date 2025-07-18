@@ -43,10 +43,12 @@ import { useForm } from 'react-hook-form';
 import slugify from 'slugify';
 import { toast } from 'sonner';
 import { CreateCourse } from './actions';
+import { useConfetti } from '@/hooks/use-confetti';
 
 const CreateCoursePage = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const { triggerConfetti } = useConfetti();
 
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
@@ -78,6 +80,7 @@ const CreateCoursePage = () => {
       }
       if (data.status === 'success') {
         toast.success(data.message);
+        triggerConfetti();
         form.reset();
         router.push('/admin/courses');
       }

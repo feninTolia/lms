@@ -22,7 +22,7 @@ const RichTextEditor = ({ field }: { field: any }) => {
     onUpdate: ({ editor }) => {
       field?.onChange(JSON.stringify(editor.getJSON()));
     },
-    content: field.value ? JSON.parse(field.value) : '<p>Hello World! 🌎️</p>',
+    content: field.value ? JSON.parse(field.value) : '',
   });
 
   return (
