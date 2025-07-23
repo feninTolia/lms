@@ -1,65 +1,21 @@
-import { AdminCourseType } from '@/app/data/admin/admin-get-courses';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { PublicCourseType } from '@/app/data/course/get-all-courses';
+import { Badge } from '@/components/ui/badge';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useConstructUrl } from '@/hooks/use-construct';
-import {
-  ArrowRight,
-  Eye,
-  MoreVertical,
-  Pencil,
-  School,
-  TimerIcon,
-  Trash2,
-} from 'lucide-react';
+import { School, TimerIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export function AdminCourseCard({ data }: { data: AdminCourseType }) {
+export function PublicCourseCard({ data }: { data: PublicCourseType }) {
   return (
     <Card className="group relative py-0 gap-0">
-      {/* absolute dropdown */}
+      {/* absolute badge */}
       <div className="absolute top-2 right-2 z-10">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="secondary" size="icon">
-              <MoreVertical className="size-4" />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/courses/${data.id}/edit`}>
-                <Pencil className="size-4 mr-2" />
-                Edit Course
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem asChild>
-              <Link href={`/courses/${data.slug}`}>
-                <Eye className="size-4 mr-2" />
-                Preview
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/courses/${data.id}/delete`}>
-                <Trash2 className="size-4 mr-2 text-destructive" />
-                Delete Course
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Badge>{data.level}</Badge>
       </div>
+
       <Image
         src={useConstructUrl(data.fileKey)}
         alt="Thumbnail URL"
@@ -70,7 +26,7 @@ export function AdminCourseCard({ data }: { data: AdminCourseType }) {
 
       <CardContent className="p-4">
         <Link
-          href={`/admin/courses/${data.id}`}
+          href={`/courses/${data.slug}`}
           className="font-medium text-lg line-clamp-1 hover:underline group-hover:text-primary transition-colors"
         >
           {data.title}
@@ -87,26 +43,27 @@ export function AdminCourseCard({ data }: { data: AdminCourseType }) {
           </div>
           <div className="flex gap-2 items-center">
             <School className="size-6 p-1 rounded-md text-primary bg-primary/10" />
-            <p className="text-sm text-muted-foreground">{data.level}</p>
+            <p className="text-sm text-muted-foreground">{data.category}</p>
           </div>
         </div>
 
         <Link
-          href={`/admin/courses/${data.id}/edit`}
+          href={`/courses/${data.slug}`}
           className={buttonVariants({ className: 'w-full mt-4' })}
         >
-          Edit Course <ArrowRight className="size-4" />
+          Learn More
         </Link>
       </CardContent>
     </Card>
   );
 }
 
-export function AdminCourseCardSkeleton() {
+export function PublicCourseCardSkeleton() {
   return (
     <Card className="group relative py-0 gap-0">
       <div className="absolute top-2 right-2 z-10 flex items-center gap-2">
-        <Skeleton className="h-6 w-24 rounded-full" />
+        <Skeleton className="h-6 w-12 rounded-full" />
+        <Skeleton className="size-8 rounded-md" />
       </div>
       <div className="w-full relative h-fit">
         <Skeleton className="w-full rounded-t-lg aspect-video h-[250px] object-cover" />

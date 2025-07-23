@@ -1,7 +1,7 @@
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, Libre_Baskerville, Lora } from 'next/font/google';
+import { IBM_Plex_Mono, Lora, Cormorant_Infant } from 'next/font/google';
 import './globals.css';
 
 const loraSans = Lora({
@@ -12,7 +12,7 @@ const ibmPlexMono = IBM_Plex_Mono({
   variable: '--font-mono',
   weight: ['100', '200', '300', '400', '500', '600', '700'],
 });
-const libreSansSerif = Libre_Baskerville({
+const CormorantInfantSerif = Cormorant_Infant({
   variable: '--font-serif',
   weight: ['400', '700'],
 });
@@ -28,9 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${CormorantInfantSerif.variable} ${loraSans.variable} ${ibmPlexMono.variable}  antialiased`}
+    >
       <body
-        className={`${libreSansSerif.variable} ${loraSans.variable} ${ibmPlexMono.variable}  antialiased`}
+      // className={`${CormorantInfantSerif.variable} ${loraSans.variable} ${ibmPlexMono.variable}  antialiased`}
       >
         <ThemeProvider
           attribute="class"
