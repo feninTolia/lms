@@ -6,15 +6,17 @@ import './globals.css';
 
 const loraSans = Lora({
   variable: '--font-sans',
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic-ext'],
 });
 const ibmPlexMono = IBM_Plex_Mono({
   variable: '--font-mono',
   weight: ['100', '200', '300', '400', '500', '600', '700'],
+  subsets: ['cyrillic-ext', 'latin-ext'],
 });
 const CormorantInfantSerif = Cormorant_Infant({
   variable: '--font-serif',
   weight: ['400', '700'],
+  subsets: ['cyrillic-ext', 'latin-ext'],
 });
 
 export const metadata: Metadata = {
