@@ -1,5 +1,5 @@
 import { requireAdmin } from '@/app/data/admin/require-admin';
-import arcjet, { detectBot, fixedWindow } from '@/lib/arcjet';
+import arcjet, { fixedWindow } from '@/lib/arcjet';
 import { S3 } from '@/lib/clientS3';
 import { env } from '@/lib/env';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
@@ -15,9 +15,7 @@ const fileUploadSchema = z.object({
   isImage: z.boolean(),
 });
 
-const aj = arcjet
-  .withRule(detectBot({ mode: 'LIVE', allow: [] }))
-  .withRule(fixedWindow({ mode: 'LIVE', max: 5, window: '1m' }));
+const aj = arcjet.withRule(fixedWindow({ mode: 'LIVE', max: 5, window: '1m' }));
 
 export async function POST(request: Request) {
   const session = await requireAdmin();

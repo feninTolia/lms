@@ -1,13 +1,11 @@
 import { requireAdmin } from '@/app/data/admin/require-admin';
-import arcjet, { detectBot, fixedWindow } from '@/lib/arcjet';
+import arcjet, { fixedWindow } from '@/lib/arcjet';
 import { S3 } from '@/lib/clientS3';
 import { env } from '@/lib/env';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { NextResponse } from 'next/server';
 
-const aj = arcjet
-  .withRule(detectBot({ mode: 'LIVE', allow: [] }))
-  .withRule(fixedWindow({ mode: 'LIVE', max: 5, window: '1m' }));
+const aj = arcjet.withRule(fixedWindow({ mode: 'LIVE', max: 5, window: '1m' }));
 
 export async function DELETE(request: Request) {
   const session = await requireAdmin();
