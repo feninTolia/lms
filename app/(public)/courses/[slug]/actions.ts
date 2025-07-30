@@ -29,7 +29,13 @@ export async function enrollInCourseAction(
 
     const course = await prisma.course.findUnique({
       where: { id: courseId },
-      select: { id: true, title: true, price: true, slug: true },
+      select: {
+        id: true,
+        title: true,
+        price: true,
+        slug: true,
+        stripePriceId: true,
+      },
     });
 
     if (!course) {
@@ -99,7 +105,7 @@ export async function enrollInCourseAction(
 
       const checkoutSession = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
-        line_items: [{ price: 'price_1RohjbCXRZHNOXkEIxrHSCNr', quantity: 1 }],
+        line_items: [{ price: course.stripePriceId, quantity: 1 }],
         mode: 'payment',
         success_url: `${env.BETTER_AUTH_URL}/payment/success`,
         cancel_url: `${env.BETTER_AUTH_URL}/payment/cancel`,

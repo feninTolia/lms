@@ -70,7 +70,7 @@ export function AdminCourseCard({ data }: { data: AdminCourseType }) {
 
       <CardContent className="p-4">
         <Link
-          href={`/admin/courses/${data.id}`}
+          href={`/courses/${data.slug}`}
           className="font-medium text-lg line-clamp-1 hover:underline group-hover:text-primary transition-colors"
         >
           {data.title}
