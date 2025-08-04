@@ -64,13 +64,13 @@ export function UserDropdown({ email, name, userImg }: UserDropdown) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={'/courses'}>
+            <Link href={'/admin/courses'}>
               <BookOpenIcon
                 size={16}
                 className="opacity-60"
                 aria-hidden="true"
               />
-              <span>Courses</span>
+              <span>Admin Courses</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
@@ -80,7 +80,7 @@ export function UserDropdown({ email, name, userImg }: UserDropdown) {
                 className="opacity-60"
                 aria-hidden="true"
               />
-              <span>Dashboard</span>
+              <span>Admin Dashboard</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
