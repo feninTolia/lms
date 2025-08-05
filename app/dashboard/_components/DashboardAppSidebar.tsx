@@ -1,20 +1,16 @@
 'use client';
 
 import {
-  IconBook,
   IconCamera,
-  IconChartBar,
   IconDashboard,
   IconDatabase,
   IconFileAi,
   IconFileDescription,
   IconFileWord,
-  IconFolder,
   IconHelp,
   IconReport,
   IconSearch,
   IconSettings,
-  IconUsers,
 } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/sidebar/nav-main';

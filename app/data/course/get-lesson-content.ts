@@ -16,7 +16,20 @@ export const getLessonContent = async (lessonId: string) => {
       description: true,
       thumbnailKey: true,
       videoKey: true,
-      Chapter: { select: { courseId: true } },
+      lessonProgress: {
+        where: { userId: session.user.id },
+        select: { completed: true, lessonId: true },
+      },
+      Chapter: {
+        select: {
+          courseId: true,
+          Course: {
+            select: {
+              slug: true,
+            },
+          },
+        },
+      },
     },
   });
 

@@ -27,6 +27,12 @@ export const getCourseSidebarData = async (slug: string) => {
               title: true,
               position: true,
               description: true,
+              lessonProgress: {
+                where: {
+                  userId: session.user.id,
+                },
+                select: { completed: true, lessonId: true, id: true },
+              },
             },
             orderBy: { position: 'asc' },
           },

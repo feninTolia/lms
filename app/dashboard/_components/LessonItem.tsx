@@ -11,12 +11,11 @@ type Props = {
     position: number;
   };
   slug: string;
+  completed: boolean;
   isActive?: boolean;
 };
 
-const LessonItem = ({ lesson, slug, isActive }: Props) => {
-  const completed = false;
-
+const LessonItem = ({ lesson, slug, isActive, completed }: Props) => {
   return (
     <Link
       href={`/dashboard/${slug}/${lesson.id}`}
@@ -25,7 +24,7 @@ const LessonItem = ({ lesson, slug, isActive }: Props) => {
         className: cn(
           'w-full p-2.5 h-auto justify-start transition-all hover:bg-primary/10',
           completed &&
-            'bg-green-100! dark:bg-green-900/30! border-green-300! dark:border-green-700! hover:bg-green-200! dark:hover:bg-green-900/50! text-green-800 dark:text-green-200',
+            'bg-green-200! dark:bg-green-900/30! border-green-300! dark:border-green-700! hover:bg-green-300! dark:hover:bg-green-900/50! text-green-800 dark:text-green-200',
           isActive &&
             !completed &&
             'bg-primary/10 dark:bg-primary/20 border-primary/50 hover:bg-primary/20 dark:hover:bg-primary/30 '

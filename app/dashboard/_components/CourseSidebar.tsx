@@ -7,6 +7,7 @@ import { CollapsibleContent } from '@radix-ui/react-collapsible';
 import { ChevronDown, PlayIcon } from 'lucide-react';
 import LessonItem from './LessonItem';
 import { usePathname } from 'next/navigation';
+import { useCourseProgress } from '@/hooks/use-course-progress';
 
 type Props = {
   course: CourseSidebarDataType;
@@ -14,6 +15,8 @@ type Props = {
 
 const CourseSidebar = ({ course }: Props) => {
   const pathname = usePathname();
+  const { totalLessons, completedLessons, progressPercentage } =
+    useCourseProgress({ courseData: course });
 
   const currentLessonId = pathname.split('/').pop();
 
@@ -38,11 +41,15 @@ const CourseSidebar = ({ course }: Props) => {
         <div className="space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium">1/3 lessons</span>
+            <span className="font-medium">
+              {completedLessons}/{totalLessons} lessons
+            </span>
           </div>
 
-          <Progress value={33} className="h-1.5" />
-          <p className="text-xs text-muted-foreground">33% complete</p>
+          <Progress value={progressPercentage} className="h-1.5" />
+          <p className="text-xs text-muted-foreground">
+            {progressPercentage}% complete
+          </p>
         </div>
       </div>
 
@@ -75,6 +82,11 @@ const CourseSidebar = ({ course }: Props) => {
                   lesson={lesson}
                   slug={course.slug}
                   isActive={currentLessonId === lesson.id}
+                  completed={
+                    lesson.lessonProgress.find(
+                      (progress) => progress.lessonId === lesson.id
+                    )?.completed || false
+                  }
                 />
               ))}
             </CollapsibleContent>
