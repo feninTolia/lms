@@ -1,10 +1,8 @@
-import { SectionCards } from '@/components/sidebar/section-cards';
-import { getEnrolledCourses } from '../data/user/get-enrolled-courses';
-import { getAllCourses } from '../data/course/get-all-courses';
 import EmptyState from '@/components/general/EmptyState';
 import { PublicCourseCard } from '../(public)/_components/PublicCourseCard';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
+import { getAllCourses } from '../data/course/get-all-courses';
+import { getEnrolledCourses } from '../data/user/get-enrolled-courses';
+import { CourseProgressCard } from './_components/CourseProgressCard';
 
 export default async function DashboardPage() {
   const [allCourses, enrolledCourses] = await Promise.all([
@@ -36,12 +34,13 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {enrolledCourses.map((course) => (
             // <PublicCourseCard data={course.Course} key={course.Course.id} />
-            <Link
-              href={`/dashboard/${course.Course.slug}`}
-              className={buttonVariants()}
-            >
-              {course.Course.title}
-            </Link>
+            <CourseProgressCard data={course} key={course.Course.id} />
+            // <Link
+            //   href={`/dashboard/${course.Course.slug}`}
+            //   className={buttonVariants()}
+            // >
+            //   {course.Course.title}
+            // </Link>
           ))}
         </div>
       )}

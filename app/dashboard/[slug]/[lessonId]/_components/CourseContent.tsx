@@ -102,7 +102,7 @@ const CourseContent = ({ data }: Props) => {
         )}
       </div>
 
-      <div className=" space-y-3 pt-3">
+      <div className="space-y-3 pt-3">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           {data.title}
         </h1>

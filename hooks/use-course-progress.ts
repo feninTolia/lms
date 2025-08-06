@@ -22,7 +22,7 @@ export function useCourseProgress({ courseData }: Props): Response {
         totalLessons++;
 
         // check if lesson is completed
-        const isCompleted = lesson.lessonProgress.some(
+        const isCompleted = lesson.lessonProgress?.some(
           (progress) => progress.lessonId === lesson.id && progress.completed
         );
 
