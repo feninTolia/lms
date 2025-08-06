@@ -125,7 +125,9 @@ const CreateCoursePage = () => {
               />
 
               <div
-                className={`flex gap-4  ${form.formState.errors.slug ? 'items-center' : 'items-end'}`}
+                className={`flex gap-4  ${
+                  form.formState.errors.slug ? 'items-center' : 'items-end'
+                }`}
               >
                 <FormField
                   control={form.control}
@@ -146,7 +148,7 @@ const CreateCoursePage = () => {
                   className="w-fit cursor-pointer"
                   onClick={() => {
                     const titleValue = form.getValues('title');
-                    const titleSlug = slugify(titleValue);
+                    const titleSlug = slugify(titleValue, { strict: true });
                     form.setValue('slug', titleSlug, { shouldValidate: true });
                   }}
                 >
