@@ -15,7 +15,7 @@ import {
 import { authClient } from '@/lib/auth-client';
 import { Loader } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { Suspense, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 const VerifyRequest = () => {
@@ -100,4 +100,10 @@ const VerifyRequest = () => {
   );
 };
 
-export default VerifyRequest;
+export default function VerifyRequestRoute() {
+  return (
+    <Suspense>
+      <VerifyRequest />
+    </Suspense>
+  );
+}
